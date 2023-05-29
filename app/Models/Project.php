@@ -25,6 +25,11 @@ class Project extends Model
         'postcode',
     ];
 
+    public $casts = [
+        'start_date' => 'date',
+        'delivery_date' => 'date',
+    ];
+
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);

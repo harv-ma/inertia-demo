@@ -19,7 +19,7 @@ class SupplierFactory extends Factory
         return [
             'name' => $this->faker->company(),
             'email' => $this->faker->email(),
-            'reg_number' => $this->faker->asciify(),
+            'reg_number' => $this->faker->lexify(),
             'telephone' => $this->faker->phoneNumber(),
             'type_of_business' => 'Partnership',
             'year_established' => $this->faker->date(),

@@ -28,6 +28,7 @@ Route::middleware('auth')->prefix('/projects')->group(function () {
     Route::get('/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
 
     // api
+    Route::get('/query', [ProjectAPIController::class, 'query'])->name('projects.query');
     Route::put('/{project}/edit', [ProjectAPIController::class, 'update'])->name('projects.update');
 });
 

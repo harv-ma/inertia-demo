@@ -33,7 +33,7 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         $name = $this->faker->company();
-        $ref = $this->faker->asciify();
+        $ref = $this->faker->lexify();
 
         return [
             'name' => $this->faker->company(),

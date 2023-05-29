@@ -15,7 +15,7 @@
         "@types/ziggy-js": "^1.3.2",
         "@vitejs/plugin-react": "^3.0.0",
         "autoprefixer": "^10.4.12",
-        "axios": "^1.1.2",
+        "axios": "^1.4.0",
         "laravel-vite-plugin": "^0.7.5",
         "postcss": "^8.4.18",
         "react": "^18.2.0",
@@ -34,9 +34,11 @@
         "@fortawesome/free-regular-svg-icons": "^6.4.0",
         "@fortawesome/free-solid-svg-icons": "^6.4.0",
         "@fortawesome/react-fontawesome": "^0.2.0",
+        "@tanstack/react-table": "^8.9.1",
         "@types/react": "^18.2.7",
         "clsx": "^1.2.1",
         "framer-motion": "^10.12.16",
-        "moment": "^2.29.4"
+        "moment": "^2.29.4",
+        "react-query": "^3.39.3"
     }
 }
