@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Nav */
+.nav__item {
+    @apply p-2;
+}
+
+.nav__item-icon {
+    @apply h-[25px] hover:text-green-600;
+}

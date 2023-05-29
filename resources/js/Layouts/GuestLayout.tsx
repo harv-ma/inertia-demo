@@ -1,7 +1,11 @@
+import Root from "@/root";
+
 export default function GuestLayout({ children }: any) {
     return (
-        <div className="min-h-screen bg-gray-100">
-            <main>{children}</main>
-        </div>
+        <Root>
+            <div className="min-h-screen bg-gray-100">
+                <main>{children}</main>
+            </div>
+        </Root>
     );
 }

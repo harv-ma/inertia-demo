@@ -27,12 +27,13 @@ export default function DeleteUserForm({ className = "" }) {
         setConfirmingUserDeletion(true);
     };
 
-    const deleteUser = (e) => {
+    const deleteUser = (e: any) => {
         e.preventDefault();
 
         destroy(route("profile.destroy"), {
             preserveScroll: true,
             onSuccess: () => closeModal(),
+            // @ts-ignore
             onError: () => passwordInput.current.focus(),
             onFinish: () => reset(),
         });
@@ -89,7 +90,7 @@ export default function DeleteUserForm({ className = "" }) {
                             name="password"
                             ref={passwordInput}
                             value={data.password}
-                            onChange={(e) =>
+                            onChange={(e: any) =>
                                 setData("password", e.target.value)
                             }
                             className="mt-1 block w-3/4"

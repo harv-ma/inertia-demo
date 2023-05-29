@@ -11,6 +11,20 @@ class Project extends Model
 {
     use HasFactory;
 
+    public $fillable = [
+        'name',
+        'name_generated',
+        'customer_id',
+        'reference',
+        'workstream',
+        'start_date',
+        'delivery_date',
+        'address_line_1',
+        'address_line_2',
+        'city',
+        'postcode',
+    ];
+
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);

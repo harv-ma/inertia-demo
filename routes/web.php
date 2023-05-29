@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\API\ProjectAPIController;
+use App\Http\Controllers\ProjectController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,6 +21,14 @@ use Inertia\Inertia;
 
 Route::middleware('auth')->controller(DashboardController::class)->group(function () {
     Route::get('/', 'dashboard')->name('dashboard');
+});
+
+Route::middleware('auth')->prefix('/projects')->group(function () {
+    Route::get('/', [ProjectController::class, 'index'])->name('projects.index');
+    Route::get('/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
+
+    // api
+    Route::put('/{project}/edit', [ProjectAPIController::class, 'update'])->name('projects.update');
 });
 
 Route::middleware('auth')->group(function () {
