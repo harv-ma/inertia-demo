@@ -4,30 +4,23 @@ import {
     Table as CTable,
     Thead,
     Tbody,
-    Tfoot,
     Tr,
     Th,
     Td,
-    Spinner,
     Select,
+    Button,
 } from "@chakra-ui/react";
-import {
-    faArrowLeft,
-    faArrowLeftRotate,
-    faArrowRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     PaginationState,
+    SortingState,
     flexRender,
     getCoreRowModel,
-    getPaginationRowModel,
     useReactTable,
 } from "@tanstack/react-table";
-import clsx from "clsx";
-import { useEffect, useMemo, useState } from "react";
-import { QueryClient, useQuery } from "react-query";
-import route from "ziggy-js";
+import { useMemo, useState } from "react";
+import { useQuery } from "react-query";
 
 type TableProps = {
     columns: any;
@@ -44,9 +37,12 @@ export default function Table({ columns, url }: TableProps) {
     const [lastPage, setLastPage] = useState(-1);
     const [loading, setLoading] = useState(true);
 
+    const [sorting, setSorting] = useState<SortingState>([]);
+
     const fetchDataOptions = {
         pageIndex,
         pageSize,
+        sorting,
     };
 
     const dataQuery: any = useQuery(
@@ -55,17 +51,34 @@ export default function Table({ columns, url }: TableProps) {
         { keepPreviousData: true }
     );
 
-    const pagination = useMemo(
+    const paginationMemo = useMemo(
         () => ({
             pageIndex,
             pageSize,
+            sorting,
         }),
-        [pageIndex, pageSize]
+        [pageIndex, pageSize, sorting]
     );
 
+    const sortingMemo = useMemo(() => sorting, [sorting]);
+
     const fetchData = (options: any) => {
+        let params: any = {
+            page: options.pageIndex + 1,
+            per_page: options.pageSize,
+            sort_by: undefined,
+            direction: undefined,
+        };
+        if (options.sorting.length > 0) {
+            params = {
+                ...params,
+                sort_by: options.sorting[0].id,
+                direction: options.sorting[0].desc ? "desc" : "asc",
+            };
+        }
+
         Client.get(url, {
-            params: { page: options.pageIndex + 1, per_page: options.pageSize },
+            params: params,
         })
             .then((res) => {
                 if (res.data) {
@@ -86,9 +99,12 @@ export default function Table({ columns, url }: TableProps) {
         getCoreRowModel: getCoreRowModel(),
         pageCount: lastPage,
         state: {
-            pagination,
+            pagination: paginationMemo,
+            sorting: sortingMemo,
         },
         onPaginationChange: setPagination,
+        onSortingChange: setSorting,
+        manualSorting: true,
         manualPagination: true,
     });
 
@@ -96,18 +112,41 @@ export default function Table({ columns, url }: TableProps) {
         <TableContainer className="py-4">
             <CTable variant="simple" className="border">
                 <Thead>
-                    {table.getHeaderGroups().map((headerGroup: any) => (
+                    {table.getHeaderGroups().map((headerGroup) => (
                         <Tr key={headerGroup.id}>
-                            {headerGroup.headers.map((header: any) => (
-                                <Th key={header.id}>
-                                    {header.isPlaceholder
-                                        ? null
-                                        : flexRender(
-                                              header.column.columnDef.header,
-                                              header.getContext()
-                                          )}
-                                </Th>
-                            ))}
+                            {headerGroup.headers.map((header) => {
+                                return (
+                                    <Th
+                                        key={header.id}
+                                        colSpan={header.colSpan}
+                                    >
+                                        {header.isPlaceholder ? null : (
+                                            <div
+                                                {...{
+                                                    className:
+                                                        header.column.getCanSort()
+                                                            ? "cursor-pointer select-none"
+                                                            : "",
+                                                    onClick:
+                                                        header.column.getToggleSortingHandler(),
+                                                }}
+                                            >
+                                                {flexRender(
+                                                    header.column.columnDef
+                                                        .header,
+                                                    header.getContext()
+                                                )}
+                                                {{
+                                                    asc: " 🔼",
+                                                    desc: " 🔽",
+                                                }[
+                                                    header.column.getIsSorted() as string
+                                                ] ?? null}
+                                            </div>
+                                        )}
+                                    </Th>
+                                );
+                            })}
                         </Tr>
                     ))}
                 </Thead>
@@ -127,27 +166,27 @@ export default function Table({ columns, url }: TableProps) {
                 </Tbody>
             </CTable>
             <div className="flex items-center gap-2 pt-4 justify-end">
-                <button
+                <Button
                     className="border rounded p-1 px-2"
                     onClick={() => table.previousPage()}
                     disabled={!table.getCanPreviousPage()}
                 >
                     <FontAwesomeIcon icon={faArrowLeft} />
-                </button>
-                <button
+                </Button>
+                <Button
                     className="border rounded p-1 px-2"
                     onClick={() => table.nextPage()}
                     disabled={!table.getCanNextPage()}
                 >
                     <FontAwesomeIcon icon={faArrowRight} />
-                </button>
+                </Button>
 
                 <Select
                     width="140px"
                     value={pageSize}
                     onChange={(val) =>
                         setPagination({
-                            pageIndex: pageIndex,
+                            pageIndex: 0,
                             pageSize: Number.parseInt(val.target.value),
                         })
                     }

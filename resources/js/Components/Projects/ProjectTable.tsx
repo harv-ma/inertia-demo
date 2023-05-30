@@ -24,6 +24,7 @@ const columns = [
         cell: (info: any) => info.getValue(),
     }),
     columnHelper.accessor("customer.name", {
+        enableSorting: false,
         header: "Customer",
         cell: (info: any) => info.getValue(),
     }),

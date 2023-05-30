@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class ProjectAPIController extends \App\Http\Controllers\Controller
 {
+    public function store(StoreProjectRequest $request)
+    {
+        Project::create($request->input());
+
+        return to_route('projects.index');
+    }
+
     public function update(StoreProjectRequest $request, Project $project)
     {
         $project->update($request->input());
@@ -19,6 +26,12 @@ class ProjectAPIController extends \App\Http\Controllers\Controller
     public function query(Request $request)
     {
         $query = Project::query()->limit(5);
+
+        if ($sort = $request->get('sort_by')) {
+            $query = $query->orderBy($sort, $request->get('direction', 'asc'));
+        } else {
+            $query = $query->orderBy('created_at', 'desc');
+        }
 
         return ProjectResource::collection($query->paginate($request->query('per_page', 10)));
     }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ProjectController extends Controller
@@ -18,5 +17,10 @@ class ProjectController extends Controller
         return Inertia::render('Projects/Edit', [
             'project' => $project->toArray()
         ]);
+    }
+
+    public function create()
+    {
+        return Inertia::render('Projects/Create');
     }
 }
