@@ -17,7 +17,14 @@ const columnHelper = createColumnHelper<Project>();
 const columns = [
     columnHelper.accessor("name_generated", {
         header: "Name",
-        cell: (info: any) => info.getValue(),
+        cell: (info: any) => (
+            <Link
+                href={route("projects.show", info.row.original.id)}
+                className="text-green-500"
+            >
+                {info.getValue()}
+            </Link>
+        ),
     }),
     columnHelper.accessor("reference", {
         header: "Reference",

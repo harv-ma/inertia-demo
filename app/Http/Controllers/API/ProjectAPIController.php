@@ -11,16 +11,16 @@ class ProjectAPIController extends \App\Http\Controllers\Controller
 {
     public function store(StoreProjectRequest $request)
     {
-        Project::create($request->input());
+        $project = Project::create($request->input());
 
-        return to_route('projects.index');
+        return to_route('projects.show', $project->id);
     }
 
     public function update(StoreProjectRequest $request, Project $project)
     {
         $project->update($request->input());
 
-        return to_route('projects.index');
+        return to_route('projects.show', $project->id);
     }
 
     public function query(Request $request)

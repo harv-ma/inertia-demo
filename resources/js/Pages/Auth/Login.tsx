@@ -8,7 +8,7 @@ import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 import route from "ziggy-js";
 
-export default function Login({ status, canResetPassword }: any) {
+const Login = ({ status, canResetPassword }: any) => {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: "",
         password: "",
@@ -28,7 +28,7 @@ export default function Login({ status, canResetPassword }: any) {
     };
 
     return (
-        <GuestLayout>
+        <>
             <Head title="Log in" />
 
             {status && (
@@ -103,6 +103,10 @@ export default function Login({ status, canResetPassword }: any) {
                     </PrimaryButton>
                 </div>
             </form>
-        </GuestLayout>
+        </>
     );
-}
+};
+
+Login.layout = (c: any) => <GuestLayout children={c} />;
+
+export default Login;

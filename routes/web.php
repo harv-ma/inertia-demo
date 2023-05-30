@@ -26,10 +26,11 @@ Route::middleware('auth')->controller(DashboardController::class)->group(functio
 Route::middleware('auth')->prefix('/projects')->group(function () {
     Route::get('/', [ProjectController::class, 'index'])->name('projects.index');
     Route::get('/create', [ProjectController::class, 'create'])->name('projects.create');
+    Route::get('/{project}', [ProjectController::class, 'show'])->name('projects.show');
     Route::get('/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit');
 
     // api
-    Route::get('/query', [ProjectAPIController::class, 'query'])->name('projects.query');
+    Route::post('/query', [ProjectAPIController::class, 'query'])->name('projects.query');
     Route::post('/', [ProjectAPIController::class, 'store'])->name('projects.store');
     Route::put('/{project}/edit', [ProjectAPIController::class, 'update'])->name('projects.update');
 });

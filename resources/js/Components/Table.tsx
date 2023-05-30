@@ -77,9 +77,7 @@ export default function Table({ columns, url }: TableProps) {
             };
         }
 
-        Client.get(url, {
-            params: params,
-        })
+        Client.post(url, params)
             .then((res) => {
                 if (res.data) {
                     // setLoading(false);

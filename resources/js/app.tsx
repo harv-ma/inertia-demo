@@ -3,17 +3,23 @@ import "../css/app.css";
 import { createRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
+import Layout from "@/Layouts/Layout";
 
 const appName =
     window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
 
 createInertiaApp({
     title: (title: any) => `${title} - ${appName}`,
-    resolve: (name: any) =>
-        resolvePageComponent(
+    resolve: async (name: any) => {
+        const page: any = await resolvePageComponent(
             `./Pages/${name}.tsx`,
             import.meta.glob("./Pages/**/*.tsx")
-        ),
+        );
+
+        page.default.layout ??= Layout;
+
+        return page;
+    },
     setup({ el, App, props }: any) {
         const root = createRoot(el);
 

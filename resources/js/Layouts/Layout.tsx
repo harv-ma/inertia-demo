@@ -2,9 +2,9 @@ import { Link } from "@inertiajs/react";
 import Root from "@/root";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faIndustry, faHome, faUser } from "@fortawesome/free-solid-svg-icons";
-import clsx from "clsx";
+import { ReactNode } from "react";
 
-export default function Authenticated({ user, children, className }: any) {
+export default function Authenticated(children: ReactNode) {
     return (
         <Root>
             <div className="min-h-screen bg-white flex pl-[90px]">
@@ -22,17 +22,15 @@ export default function Authenticated({ user, children, className }: any) {
                         />
                     </Link>
 
-                    {user && (
-                        <Link href="/profile" className="nav__item mt-auto">
-                            <FontAwesomeIcon
-                                icon={faUser}
-                                className="nav__item-icon"
-                            />
-                        </Link>
-                    )}
+                    <Link href="/profile" className="nav__item mt-auto">
+                        <FontAwesomeIcon
+                            icon={faUser}
+                            className="nav__item-icon"
+                        />
+                    </Link>
                 </nav>
 
-                <main className={clsx(className, "grow")}>{children}</main>
+                <main className="grow">{children}</main>
             </div>
         </Root>
     );
