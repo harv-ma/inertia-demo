@@ -3,10 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\API\ProjectAPIController;
+use App\Http\Controllers\API\ProjectDesignController;
 use App\Http\Controllers\ProjectController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +32,11 @@ Route::middleware('auth')->prefix('/projects')->group(function () {
     Route::post('/query', [ProjectAPIController::class, 'query'])->name('projects.query');
     Route::post('/', [ProjectAPIController::class, 'store'])->name('projects.store');
     Route::put('/{project}/edit', [ProjectAPIController::class, 'update'])->name('projects.update');
+    Route::post('/{project}/query', [ProjectAPIController::class, 'queryDesigns'])->name('projects.show.designs');
+});
+
+Route::middleware('auth')->prefix('/designs')->group(function () {
+    Route::put('/{design}', [ProjectDesignController::class, 'update'])->name('designs.update');
 });
 
 Route::middleware('auth')->group(function () {

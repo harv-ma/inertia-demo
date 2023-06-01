@@ -60,7 +60,7 @@ export default function Edit({ auth, project, back }: any) {
     }, [data.name]);
 
     return (
-        <form onSubmit={submit} className="">
+        <form onSubmit={submit} className="p-8">
             <Head title="Dashboard" />
             <Link href={back}>Back</Link>
             <div className="flex justify-between items-center mb-6">

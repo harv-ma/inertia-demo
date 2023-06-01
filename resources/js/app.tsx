@@ -1,4 +1,5 @@
 import "../css/app.css";
+import "react-sliding-pane/dist/react-sliding-pane.css";
 
 import { createRoot } from "react-dom/client";
 import { createInertiaApp } from "@inertiajs/react";

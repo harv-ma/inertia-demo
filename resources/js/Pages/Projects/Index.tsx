@@ -1,10 +1,9 @@
 import ProjectsTable from "@/Components/Projects/ProjectTable";
-import Layout from "@/Layouts/Layout";
 import { Heading } from "@chakra-ui/react";
 import { Head, Link } from "@inertiajs/react";
 import route from "ziggy-js";
 
-export default function Projects({ auth }: any) {
+export default function Projects({ auth, projects }: any) {
     return (
         <>
             <Head title="Dashboard" />
@@ -13,7 +12,7 @@ export default function Projects({ auth }: any) {
                     <Heading>Projects</Heading>
                     <Link href={route("projects.create")}>Create</Link>
                 </div>
-                <ProjectsTable />
+                <ProjectsTable initialData={projects.data} />
             </div>
         </>
     );

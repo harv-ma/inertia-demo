@@ -25,11 +25,10 @@ import { useQuery } from "react-query";
 type TableProps = {
     columns: any;
     url: string;
-    initialData?: Array<any>;
 };
 
-export default function Table({ columns, url, initialData }: TableProps) {
-    const [data, setData] = useState(initialData ?? []);
+export default function Table({ columns, url }: TableProps) {
+    const [data, setData] = useState([]);
 
     const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
         pageIndex: 0,
@@ -108,64 +107,62 @@ export default function Table({ columns, url, initialData }: TableProps) {
     });
 
     return (
-        <div>
-            <TableContainer className="py-4">
-                <CTable variant="simple" className="border">
-                    <Thead>
-                        {table.getHeaderGroups().map((headerGroup) => (
-                            <Tr key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => {
-                                    return (
-                                        <Th
-                                            key={header.id}
-                                            colSpan={header.colSpan}
-                                        >
-                                            {header.isPlaceholder ? null : (
-                                                <div
-                                                    {...{
-                                                        className:
-                                                            header.column.getCanSort()
-                                                                ? "cursor-pointer select-none"
-                                                                : "",
-                                                        onClick:
-                                                            header.column.getToggleSortingHandler(),
-                                                    }}
-                                                >
-                                                    {flexRender(
-                                                        header.column.columnDef
-                                                            .header,
-                                                        header.getContext()
-                                                    )}
-                                                    {{
-                                                        asc: " 🔼",
-                                                        desc: " 🔽",
-                                                    }[
-                                                        header.column.getIsSorted() as string
-                                                    ] ?? null}
-                                                </div>
-                                            )}
-                                        </Th>
-                                    );
-                                })}
-                            </Tr>
-                        ))}
-                    </Thead>
-                    <Tbody>
-                        {table.getRowModel().rows.map((row: any) => (
-                            <Tr key={row.id}>
-                                {row.getVisibleCells().map((cell: any) => (
-                                    <Td key={cell.id}>
-                                        {flexRender(
-                                            cell.column.columnDef.cell,
-                                            cell.getContext()
+        <TableContainer className="py-4">
+            <CTable variant="simple" className="border">
+                <Thead>
+                    {table.getHeaderGroups().map((headerGroup) => (
+                        <Tr key={headerGroup.id}>
+                            {headerGroup.headers.map((header) => {
+                                return (
+                                    <Th
+                                        key={header.id}
+                                        colSpan={header.colSpan}
+                                    >
+                                        {header.isPlaceholder ? null : (
+                                            <div
+                                                {...{
+                                                    className:
+                                                        header.column.getCanSort()
+                                                            ? "cursor-pointer select-none"
+                                                            : "",
+                                                    onClick:
+                                                        header.column.getToggleSortingHandler(),
+                                                }}
+                                            >
+                                                {flexRender(
+                                                    header.column.columnDef
+                                                        .header,
+                                                    header.getContext()
+                                                )}
+                                                {{
+                                                    asc: " 🔼",
+                                                    desc: " 🔽",
+                                                }[
+                                                    header.column.getIsSorted() as string
+                                                ] ?? null}
+                                            </div>
                                         )}
-                                    </Td>
-                                ))}
-                            </Tr>
-                        ))}
-                    </Tbody>
-                </CTable>
-            </TableContainer>
+                                    </Th>
+                                );
+                            })}
+                        </Tr>
+                    ))}
+                </Thead>
+                <Tbody>
+                    {table.getRowModel().rows.map((row: any) => (
+                        <Tr key={row.id}>
+                            {row.getVisibleCells().map((cell: any) => (
+                                <Td key={cell.id}>
+                                    {flexRender(
+                                        cell.column.columnDef.cell,
+                                        cell.getContext()
+                                    )}
+                                </Td>
+                            ))}
+                        </Tr>
+                    ))}
+                </Tbody>
+            </CTable>
             <div className="flex items-center gap-2 pt-4 justify-end">
                 <Button
                     className="border rounded p-1 px-2"
@@ -197,6 +194,6 @@ export default function Table({ columns, url, initialData }: TableProps) {
                     <option value={30}>30</option>
                 </Select>
             </div>
-        </div>
+        </TableContainer>
     );
 }

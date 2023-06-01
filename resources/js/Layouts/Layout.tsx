@@ -30,7 +30,7 @@ export default function Authenticated(children: ReactNode) {
                     </Link>
                 </nav>
 
-                <main className="grow">{children}</main>
+                <main className="grow min-w-0">{children}</main>
             </div>
         </Root>
     );

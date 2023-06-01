@@ -49,6 +49,12 @@ const columns = [
     }),
 ];
 
-export default function ProjectsTable() {
-    return <Table columns={columns} url={route("projects.query")} />;
+export default function ProjectsTable({ initialData }: any) {
+    return (
+        <Table
+            columns={columns}
+            url={route("projects.query")}
+            initialData={initialData}
+        />
+    );
 }

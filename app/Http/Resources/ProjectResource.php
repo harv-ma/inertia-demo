@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -16,7 +15,10 @@ class ProjectResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            ...parent::toArray($request),
+            'id' => $this->id,
+            'name' => $this->name,
+            'name_generated' => $this->name_generated,
+            'reference' => $this->name,
             'customer' => [
                 'name' => $this->customer->name
             ],

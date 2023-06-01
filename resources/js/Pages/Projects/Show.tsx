@@ -1,3 +1,4 @@
+import ProjectsDesignsTable from "@/Components/ProjectDesigns/ProjectDesignsTable";
 import {
     Heading,
     Tab,
@@ -9,7 +10,7 @@ import {
 import { Head, Link } from "@inertiajs/react";
 import route from "ziggy-js";
 
-export default function Show({ project }: any) {
+export default function Show({ project, project_designs }: any) {
     return (
         <>
             <Head title={project.name} />
@@ -29,20 +30,21 @@ export default function Show({ project }: any) {
 
                     <Tabs className="mt-8">
                         <TabList>
-                            <Tab>Designs</Tab>
                             <Tab>Supplier POs</Tab>
+                            <Tab>Designs</Tab>
                             <Tab>Comments</Tab>
                         </TabList>
                         <TabPanels>
                             <TabPanel>
                                 <Heading as="h3" size="sm">
-                                    Project Designs
+                                    Supplier POs
                                 </Heading>
                             </TabPanel>
                             <TabPanel>
                                 <Heading as="h3" size="sm">
-                                    Supplier POs
+                                    Project Designs
                                 </Heading>
+                                <ProjectsDesignsTable rows={project_designs} />
                             </TabPanel>
                             <TabPanel>
                                 <Heading as="h3" size="sm">

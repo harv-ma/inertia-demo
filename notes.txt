@@ -1,0 +1,48 @@
+Projects:
+Name
+Reference
+Customer
+Workstreams (limit 1)
+	Consulting
+	Feasbaility
+	Gas cooler
+	Brand standards
+Auto generated name (ref-name-customer_abbr)
+Start date
+delivery date
+Address
+Project lead
+Project managers
+contact managers
+
+Suppliers:
+Name
+Type of business:
+	Partnership
+	Sole trader
+	Trust
+	Company
+Services provides:
+	ATM
+	Architect
+	Bakery Kit
+	Bakery Goods
+Reg No.
+Year established
+Address
+email
+phone number
+
+
+
+Customers:
+Name
+Abbreviation
+Address
+contact details
+
+
+Project designs:
+Status
+Comment
+File

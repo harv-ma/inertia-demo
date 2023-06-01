@@ -9,6 +9,11 @@ class ProjectDesign extends Model
 {
     use HasFactory;
 
+    public $fillable = [
+        'status',
+        'comment'
+    ];
+
     public function project()
     {
         return $this->belongsTo(Project::class);
